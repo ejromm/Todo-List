@@ -16,7 +16,7 @@
   \*************************************************************/
 /***/ ((module, __webpack_exports__, __webpack_require__) => {
 
-eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export */ __webpack_require__.d(__webpack_exports__, {\n/* harmony export */   \"default\": () => (__WEBPACK_DEFAULT_EXPORT__)\n/* harmony export */ });\n/* harmony import */ var _node_modules_css_loader_dist_runtime_noSourceMaps_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../node_modules/css-loader/dist/runtime/noSourceMaps.js */ \"./node_modules/css-loader/dist/runtime/noSourceMaps.js\");\n/* harmony import */ var _node_modules_css_loader_dist_runtime_noSourceMaps_js__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_css_loader_dist_runtime_noSourceMaps_js__WEBPACK_IMPORTED_MODULE_0__);\n/* harmony import */ var _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../node_modules/css-loader/dist/runtime/api.js */ \"./node_modules/css-loader/dist/runtime/api.js\");\n/* harmony import */ var _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_1__);\n// Imports\n\n\nvar ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_1___default()((_node_modules_css_loader_dist_runtime_noSourceMaps_js__WEBPACK_IMPORTED_MODULE_0___default()));\n// Module\n___CSS_LOADER_EXPORT___.push([module.id, \"\", \"\"]);\n// Exports\n/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);\n\n\n//# sourceURL=webpack://todo-list/./src/style.css?./node_modules/css-loader/dist/cjs.js");
+eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export */ __webpack_require__.d(__webpack_exports__, {\n/* harmony export */   \"default\": () => (__WEBPACK_DEFAULT_EXPORT__)\n/* harmony export */ });\n/* harmony import */ var _node_modules_css_loader_dist_runtime_noSourceMaps_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../node_modules/css-loader/dist/runtime/noSourceMaps.js */ \"./node_modules/css-loader/dist/runtime/noSourceMaps.js\");\n/* harmony import */ var _node_modules_css_loader_dist_runtime_noSourceMaps_js__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_css_loader_dist_runtime_noSourceMaps_js__WEBPACK_IMPORTED_MODULE_0__);\n/* harmony import */ var _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../node_modules/css-loader/dist/runtime/api.js */ \"./node_modules/css-loader/dist/runtime/api.js\");\n/* harmony import */ var _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_1__);\n// Imports\n\n\nvar ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_1___default()((_node_modules_css_loader_dist_runtime_noSourceMaps_js__WEBPACK_IMPORTED_MODULE_0___default()));\n___CSS_LOADER_EXPORT___.push([module.id, \"@import url(https://fonts.googleapis.com/css2?family=Bodoni+Moda:ital,opsz,wght@0,6..96,400;0,6..96,500;0,6..96,600;0,6..96,700;0,6..96,800;0,6..96,900;1,6..96,400;1,6..96,500;1,6..96,600;1,6..96,700;1,6..96,800;1,6..96,900&family=EB+Garamond:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400;1,500;1,600;1,700;1,800&family=Fugaz+One&family=Inter:wght@100;200;300;400;500;600;700;800;900&family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&family=Montserrat:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Open+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,300;1,400;1,500;1,600;1,700&family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&family=Varela+Round&display=swap);\"]);\n// Module\n___CSS_LOADER_EXPORT___.push([module.id, \"* {\\n    margin: 0;\\n    padding: 0;\\n    border: 0;\\n    overflow: hidden;\\n}\\nhtml {\\n    font-size: 16px;\\n    height: 100vh;\\n    width: 100vw;\\n   \\n}\\nbody {\\n    height: 100vh;\\n    width: 100vw;\\n    overflow: auto;\\n}\\n.container {\\n    height: 100vh;\\n    width: 100vw;\\n    display: flex;\\n    flex-direction: column;\\n}\\n.header {\\n    height: 15vh;\\n    width: 100vw;\\n    background-color: #d5bdaf;\\n    font-family: 'Montserrat', sans-serif;\\n    font-weight: 600;\\n    display: flex;\\n    align-items: center;\\n    font-size: 2rem;\\n    padding-left: 5%;\\n}\\n.content {\\n    height: 85vh;\\n    display: flex;\\n    flex-direction: row;\\n\\n}\\n.sidebar {\\n    background-color: #edede9;\\n    height: 100%;\\n    width: 20%;\\n    display: flex;\\n    flex-direction: column; \\n    align-items: center;\\n    \\n}\\n.home {\\n    width: 80%;\\n    height: 30%;\\n    font-size: 1rem;\\n    display: flex;\\n    flex-direction: column;\\n}\\n.sidebar-projects {\\n    width: 80%;\\n    height: 70%;\\n    font-size: 1rem;\\n\\n}\\n.home h1, .sidebar-projects h1 {\\n    border-bottom: 1px solid black;\\n    font-weight: 400;\\n    font-family: 'Open Sans', sans-serif;\\n    height: 20%;\\n}\\n.home-btns {\\n    height: 80%;\\n    display: flex;\\n    flex-direction: column;\\n    align-items: center;\\n    justify-content: flex-end;\\n    gap: 5%;\\n    \\n}\\n.home-btns button {\\n    border: 1px solid black;\\n    height: 20%;\\n    width: 100%;\\n    font-family: 'Open Sans', sans-serif;\\n    display: flex;\\n    flex-direction: row;\\n}\\n.home-btns button:hover {\\n    background-color: lightgray;\\n}\\n.all-tasks-img, .today-img, .week-img, .favorite-img {\\n    height: 80%;\\n    width: 10%;\\n}\\n.tasks-image, .today-image, .week-image, .favorite-image {\\n    height: 100%;\\n    width: 100%;\\n}\\n\\n.projects {\\n    background-color: white;\\n    height: 100%;\\n    width: 80%; \\n}\", \"\"]);\n// Exports\n/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);\n\n\n//# sourceURL=webpack://todo-list/./src/style.css?./node_modules/css-loader/dist/cjs.js");
 
 /***/ }),
 
@@ -116,7 +116,47 @@ eval("\n\n/* istanbul ignore next  */\nfunction styleTagTransform(css, styleElem
   \**********************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
-eval("__webpack_require__.r(__webpack_exports__);\n/* harmony import */ var _style_css__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./style.css */ \"./src/style.css\");\n\nconsole.log(500); \n\n//# sourceURL=webpack://todo-list/./src/index.js?");
+eval("__webpack_require__.r(__webpack_exports__);\n/* harmony import */ var _style_css__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./style.css */ \"./src/style.css\");\n/* harmony import */ var _inbox_png__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./inbox.png */ \"./src/inbox.png\");\n/* harmony import */ var _calendar_png__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./calendar.png */ \"./src/calendar.png\");\n/* harmony import */ var _calendar_1_png__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./calendar-1.png */ \"./src/calendar-1.png\");\n/* harmony import */ var _calendar_2_png__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./calendar-2.png */ \"./src/calendar-2.png\");\n\n \n \n \n \n\nconst imgOne = new Image(); \nimgOne.src = _inbox_png__WEBPACK_IMPORTED_MODULE_1__; \nimgOne.classList.add('tasks-image'); \nconst allTasks = document.querySelector('.all-tasks-img');\nallTasks.appendChild(imgOne); \n\nconst imgTwo = new Image(); \nimgTwo.src = _calendar_1_png__WEBPACK_IMPORTED_MODULE_3__; \nimgTwo.classList.add('today-image'); \nconst today = document.querySelector('.today-img');\ntoday.appendChild(imgTwo); \n\nconst imgThree = new Image(); \nimgThree.src = _calendar_png__WEBPACK_IMPORTED_MODULE_2__; \nimgThree.classList.add('week-image'); \nconst week = document.querySelector('.week-img');\nweek.appendChild(imgThree); \n\nconst imgFour = new Image(); \nimgFour.src = _calendar_2_png__WEBPACK_IMPORTED_MODULE_4__; \nimgFour.classList.add('favorite-image'); \nconst favorite = document.querySelector('.favorite-img');\nfavorite.appendChild(imgFour); \n\n\n\n\n\n//# sourceURL=webpack://todo-list/./src/index.js?");
+
+/***/ }),
+
+/***/ "./src/calendar-1.png":
+/*!****************************!*\
+  !*** ./src/calendar-1.png ***!
+  \****************************/
+/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
+
+eval("module.exports = __webpack_require__.p + \"24c974015dcc7b624f54.png\";\n\n//# sourceURL=webpack://todo-list/./src/calendar-1.png?");
+
+/***/ }),
+
+/***/ "./src/calendar-2.png":
+/*!****************************!*\
+  !*** ./src/calendar-2.png ***!
+  \****************************/
+/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
+
+eval("module.exports = __webpack_require__.p + \"3359fa0f33950c130f6a.png\";\n\n//# sourceURL=webpack://todo-list/./src/calendar-2.png?");
+
+/***/ }),
+
+/***/ "./src/calendar.png":
+/*!**************************!*\
+  !*** ./src/calendar.png ***!
+  \**************************/
+/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
+
+eval("module.exports = __webpack_require__.p + \"4b59ba29906c2f748e64.png\";\n\n//# sourceURL=webpack://todo-list/./src/calendar.png?");
+
+/***/ }),
+
+/***/ "./src/inbox.png":
+/*!***********************!*\
+  !*** ./src/inbox.png ***!
+  \***********************/
+/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
+
+eval("module.exports = __webpack_require__.p + \"fc5e0e3e0df60990a55e.png\";\n\n//# sourceURL=webpack://todo-list/./src/inbox.png?");
 
 /***/ })
 
@@ -171,6 +211,18 @@ eval("__webpack_require__.r(__webpack_exports__);\n/* harmony import */ var _sty
 /******/ 		};
 /******/ 	})();
 /******/ 	
+/******/ 	/* webpack/runtime/global */
+/******/ 	(() => {
+/******/ 		__webpack_require__.g = (function() {
+/******/ 			if (typeof globalThis === 'object') return globalThis;
+/******/ 			try {
+/******/ 				return this || new Function('return this')();
+/******/ 			} catch (e) {
+/******/ 				if (typeof window === 'object') return window;
+/******/ 			}
+/******/ 		})();
+/******/ 	})();
+/******/ 	
 /******/ 	/* webpack/runtime/hasOwnProperty shorthand */
 /******/ 	(() => {
 /******/ 		__webpack_require__.o = (obj, prop) => (Object.prototype.hasOwnProperty.call(obj, prop))
@@ -185,6 +237,26 @@ eval("__webpack_require__.r(__webpack_exports__);\n/* harmony import */ var _sty
 /******/ 			}
 /******/ 			Object.defineProperty(exports, '__esModule', { value: true });
 /******/ 		};
+/******/ 	})();
+/******/ 	
+/******/ 	/* webpack/runtime/publicPath */
+/******/ 	(() => {
+/******/ 		var scriptUrl;
+/******/ 		if (__webpack_require__.g.importScripts) scriptUrl = __webpack_require__.g.location + "";
+/******/ 		var document = __webpack_require__.g.document;
+/******/ 		if (!scriptUrl && document) {
+/******/ 			if (document.currentScript)
+/******/ 				scriptUrl = document.currentScript.src
+/******/ 			if (!scriptUrl) {
+/******/ 				var scripts = document.getElementsByTagName("script");
+/******/ 				if(scripts.length) scriptUrl = scripts[scripts.length - 1].src
+/******/ 			}
+/******/ 		}
+/******/ 		// When supporting browsers where an automatic publicPath is not supported you must specify an output.publicPath manually via configuration
+/******/ 		// or pass an empty string ("") and set the __webpack_public_path__ variable from your code to use your own logic.
+/******/ 		if (!scriptUrl) throw new Error("Automatic publicPath is not supported in this browser");
+/******/ 		scriptUrl = scriptUrl.replace(/#.*$/, "").replace(/\?.*$/, "").replace(/\/[^\/]+$/, "/");
+/******/ 		__webpack_require__.p = scriptUrl;
 /******/ 	})();
 /******/ 	
 /******/ 	/* webpack/runtime/nonce */
