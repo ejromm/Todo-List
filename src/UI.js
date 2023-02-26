@@ -2,16 +2,17 @@ import { Project } from "./project";
 import { ToDos } from "./todos";
 
 const app = (function () {
-let storage = []; 
-
-function setDefaultProject() {
-    const defaultProj = new Project('Default'); 
-    storage.push(defaultProj); 
-    console.log(storage); 
+let storage = [
+    {name: 'Default', 
+     todos: [], 
 }
+]; 
 
-function updateLocalStorate() {
+
+
+function updateLocalStorage() {
     localStorage.setItem('Storage', JSON.stringify(storage)); 
+    console.log(localStorage); 
 }
 function restoreLocalStorage() {
     if(localStorage.getItem('Storage')) {
@@ -67,8 +68,7 @@ function getAllTodos() {
     return todoArray; 
 }
 return {
-    setDefaultProject, 
-    updateLocalStorate, 
+    updateLocalStorage, 
     restoreLocalStorage, 
     addProjectToLibrary, 
     addTodoToProject, 
@@ -76,6 +76,7 @@ return {
     deleteProjectFromLibrary,
     editTodo, 
     getAllTodos, 
+    storage, 
 
 
 

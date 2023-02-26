@@ -165,3 +165,20 @@ body {
     border: 1px solid black;
     border-radius: 5px;
 }
+
+/* projects list on sidebar*/
+.projects-list {
+
+} 
+.project-list-item {
+    height: 3vh;
+    border: 1px solid black;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 2%;
+   
+}
+.project-list-item:hover {
+    background-color: lightgray;
+}

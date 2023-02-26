@@ -40,8 +40,7 @@ function pageImages() {
 }
 
 // add event listener to add project button, create form modal, push contents to local storage
-function projectModal() {
-    app.setDefaultProject(); 
+function projectModal() { 
     const newProjButton = document.querySelector('#new-proj-btn'); 
     const buttonsDiv = document.querySelector('.project-btns');
 
@@ -84,9 +83,27 @@ function projectModal() {
         app.addProjectToLibrary(projectInput.value);
         buttonsDiv.removeChild(projectForm);
         buttonsDiv.appendChild(newProjButton); 
-       
+        renderAndDisplay(projectInput.value); 
     
     })
 }
+function renderAndDisplay(project) {
+    const projectList = document.querySelector('.projects-list'); 
+    let item = document.createElement('li'); 
+    item.classList.add('project-list-item'); 
+    item.textContent = project; 
+    projectList.append(item); 
+    app.updateLocalStorage(); 
 
-export { pageImages, projectModal }; 
+}
+
+
+
+function renderAll() {
+app.restoreLocalStorage();
+console.log(app.storage); 
+ for (let i = 0 ; i < app.storage.length; i++) {
+    renderAndDisplay(app.storage[i].name); 
+ }
+}
+export { pageImages, projectModal, renderAll }; 
