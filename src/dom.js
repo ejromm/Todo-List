@@ -4,6 +4,7 @@ import Icon2 from './calendar.png';
 import Icon3 from './calendar-1.png'; 
 import Icon4 from './calendar-2.png'; 
 import Icon5 from './plus.png'; 
+import Icon6 from './trash-removebg-preview.png'; 
 import { app } from './UI';
 
 //upload button icons
@@ -67,7 +68,7 @@ function projectModal() {
 
 
     newProjButton.addEventListener('click', function() {
-        console.log('clicked'); 
+
         buttonsDiv.removeChild(newProjButton); 
         buttonsDiv.appendChild(projectForm); 
 
@@ -91,19 +92,36 @@ function renderAndDisplay(project) {
     const projectList = document.querySelector('.projects-list'); 
     let item = document.createElement('li'); 
     item.classList.add('project-list-item'); 
-    item.textContent = project; 
+    let projectText = document.createElement('p'); 
+    projectText.classList.add('project-item-text'); 
+    projectText.textContent = project; 
+    item.append(projectText); 
+    
     projectList.append(item); 
     app.updateLocalStorage(); 
 
+    const deleteBtn = document.createElement('button');
+    deleteBtn.classList.add('delete-project-button'); 
+    item.append(deleteBtn);  
+
+    const deleteImg = new Image(); 
+    deleteImg.src = Icon6; 
+    deleteImg.classList.add('delete-project-img'); 
+    deleteBtn.append(deleteImg); 
+
+    deleteBtn.addEventListener('click', function() {
+        item.remove(); 
+        app.deleteProjectFromLibrary(project);
+        app.updateLocalStorage()
+    })
 }
 
 
 
 function renderAll() {
-app.restoreLocalStorage();
-console.log(app.storage); 
- for (let i = 0 ; i < app.storage.length; i++) {
-    renderAndDisplay(app.storage[i].name); 
- }
+ app.restoreLocalStorage();
+ let arr = app.returnStorage(); 
+ console.log(arr); 
+  arr.forEach((project) => renderAndDisplay(project.name))
 }
 export { pageImages, projectModal, renderAll }; 

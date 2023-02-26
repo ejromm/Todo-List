@@ -8,24 +8,27 @@ let storage = [
 }
 ]; 
 
-
+function returnStorage() {
+    return storage; 
+}
 
 function updateLocalStorage() {
     localStorage.setItem('Storage', JSON.stringify(storage)); 
     console.log(localStorage); 
+    console.log(storage); 
 }
 function restoreLocalStorage() {
     if(localStorage.getItem('Storage')) {
        let object = JSON.parse(localStorage.getItem('Storage')); 
        storage = object; 
-       console.log(storage); 
+       
     }
 }
 
 function addProjectToLibrary(name) {
     let newProject = new Project(name); 
     storage.push(newProject); 
-    console.log(storage); 
+    
 }
 
 function addTodoToProject(projectIndex, title, description, date, important, done) {
@@ -42,9 +45,9 @@ function deleteTodoFromProject(projectIndex, todoIndex) {
     project.todos.splice(todo, 1); 
 }
 
-function deleteProjectFromLibrary(projectIndex) {
-    const project = storage.find((p) => storage.indexOf(p) === projectIndex); 
-    storage.splice(project, 1); 
+function deleteProjectFromLibrary(deleteProj) {
+    const proj = storage.find(project => project.name === deleteProj); 
+    storage.splice(storage.indexOf(proj), 1); 
 }
 
 function editTodo(projectIndex, todoIndex, title, description, date, important, done) {
@@ -75,8 +78,8 @@ return {
     deleteTodoFromProject,
     deleteProjectFromLibrary,
     editTodo, 
-    getAllTodos, 
-    storage, 
+    getAllTodos,  
+    returnStorage
 
 
 

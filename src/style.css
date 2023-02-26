@@ -167,9 +167,6 @@ body {
 }
 
 /* projects list on sidebar*/
-.projects-list {
-
-} 
 .project-list-item {
     height: 3vh;
     border: 1px solid black;
@@ -181,4 +178,27 @@ body {
 }
 .project-list-item:hover {
     background-color: lightgray;
+}
+.project-item-text {
+    margin-left: auto;
+}
+.delete-project-button {
+    width: 10%;
+    height: 90%;
+    margin-left: auto;
+    margin-right: 2%;
+    background-color: transparent;
+
+}
+
+.delete-project-img {
+    height: 100%;
+    width: 100%;
+    background-color: transparent;
+    filter: invert(51%) sepia(8%) saturate(7%) hue-rotate(39deg) brightness(98%) contrast(90%);
+}
+.delete-project-img:hover {
+    filter: invert(0%) sepia(93%) saturate(0%) hue-rotate(255deg) brightness(93%) contrast(103%);
+
+
 }

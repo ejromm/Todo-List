@@ -1,12 +1,11 @@
-import { pageImages, projectModal, projectsSidebar, renderAll, renderFirstProj } from "./dom";
-import { app } from './UI'; 
-document.addEventListener('DOMContentLoaded', function() { 
-console.log(localStorage); 
+import { pageImages, projectModal, renderAll } from "./dom";
+ 
+
 pageImages(); 
 projectModal(); 
 renderAll(); 
 
-})
+
 
 
 
