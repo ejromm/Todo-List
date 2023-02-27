@@ -83,6 +83,8 @@ function createDOM() {
     const importantInputTwo = document.createElement('input'); 
     importantInputOne.type = 'radio'; 
     importantInputTwo.type = 'radio'; 
+    importantInputOne.classList.add('important-input-one'); 
+    importantInputTwo.classList.add('important-input-two'); 
     const importantInputOneLabel = document.createElement('label'); 
     const importantInputTwoLabel = document.createElement('label'); 
     importantInputOneLabel.textContent = 'Yes'; 
@@ -211,6 +213,7 @@ function renderProjectScreen(proj) {
     console.log(document.querySelector('.add-todo-form'));
     const addTodoForm = document.querySelector('.add-todo-form'); 
     const formCancelBtn = document.querySelector('.form-cancel-btn'); 
+    const formSubmitBtn = document.querySelector('.form-submit-btn'); 
     addTodoBtn.addEventListener('click', function() {
         addTodoBtn.classList.add('invisible');
         addTodoForm.classList.remove('invisible');
@@ -224,11 +227,31 @@ function renderProjectScreen(proj) {
         addTodoForm.classList.add('invisible');  
         addTodoBtn.classList.remove('invisible'); 
       }); 
-    
 
+    formSubmitBtn.addEventListener('click', function(e) {
+        e.preventDefault(); 
+        addTodoForm.removeAttribute('id', 'add-todo-form-visible'); 
+        addTodoForm.classList.add('invisible'); 
+        addTodoBtn.classList.remove('invisible');  
+        pushTodo(); 
+
+    }); 
 
 }
-
+function pushTodo() {
+    const title = document.getElementById('todo-title-input');
+    const titleVal = title.value; 
+    const description = document.getElementById('todo-description-input'); 
+    const descriptionVal = description.value; 
+    let importantVal = false; 
+    const importantInputOne = document.querySelector('.important-input-one'); 
+    const importantInputTwo = document.querySelector('.important-input-two'); 
+    if (importantInputOne.checked) {
+        importantVal = true; 
+       
+    }; 
+    console.log(importantVal); 
+}
 
 function renderAll() {
  app.restoreLocalStorage();

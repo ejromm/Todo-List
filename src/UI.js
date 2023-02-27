@@ -5,7 +5,7 @@ const app = (function () {
 let storage = [
     {name: 'Default', 
      todos: [], 
-}
+}, 
 ]; 
 
 function returnStorage() {
@@ -34,7 +34,7 @@ function addProjectToLibrary(name) {
 function addTodoToProject(projectIndex, title, description, date, important, done) {
   const newTodo = new ToDos(title, description, date, important, done); 
   const project = storage.find((p) => storage.indexOf(p) === projectIndex);
-  project.todos.push(newTodo); 
+  project.addTodo(newTodo); 
   
 
 }
@@ -65,8 +65,8 @@ function getAllTodos() {
     storage.forEach((project) => {
         project.todos.forEach((todo) => {
             todoArray.push(todo); 
-        })
-    })
+        }); 
+    }); 
 
     return todoArray; 
 }
