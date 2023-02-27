@@ -253,14 +253,14 @@ body {
 }
 
 /* add todo form */
-.add-todo-form {
- width: 100%;
- display: flex;
- flex-direction: column;
- align-items: center;
- gap: 20px;
- 
-} 
+
+#add-todo-form-visible {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+}
 
 .add-todo-header {
     font-size: 1.5rem;

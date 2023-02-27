@@ -115,9 +115,8 @@ function createDOM() {
     addTodoForm.append(addTodoHeader, titleInput, descriptionInput, importantDiv, dateInput, formSubmitCancel); 
     todoBtnContainer.appendChild(addTodoForm); 
 
-    addTodoBtn.classList.toggle('invisible');
-    addTodoForm.classList.toggle('add-todo-form'); 
-    addTodoForm.classList.toggle('invisible'); 
+    addTodoBtn.classList.add('invisible');
+    addTodoForm.classList.add('invisible'); 
 }
 
 // add event listener to add project button, create form modal, push contents to local storage
@@ -207,20 +206,23 @@ function renderAndDisplay(project) {
 function renderProjectScreen(proj) {
     const projectNameContainer = document.querySelector('.project-name'); 
     projectNameContainer.textContent = proj; 
+    console.log(document.querySelector('.add-todo-btn')); 
     const addTodoBtn = document.querySelector('.add-todo-btn'); 
+    console.log(document.querySelector('.add-todo-form'));
     const addTodoForm = document.querySelector('.add-todo-form'); 
     const formCancelBtn = document.querySelector('.form-cancel-btn'); 
     addTodoBtn.addEventListener('click', function() {
-        addTodoBtn.classList.toggle('invisible');
-        addTodoForm.classList.toggle('invisible');
-        addTodoForm.classList.toggle('add-todo-form');  
+        addTodoBtn.classList.add('invisible');
+        addTodoForm.classList.remove('invisible');
+        addTodoForm.setAttribute('id', 'add-todo-form-visible');  
        
     }); 
 
-    formCancelBtn.addEventListener('click', function() {
-        addTodoForm.classList.toggle('add-todo-form');
-        addTodoForm.classList.toggle('invisible');  
-        addTodoBtn.classList.toggle('invisible'); 
+    formCancelBtn.addEventListener('click', function(e) {
+        e.preventDefault(); 
+        addTodoForm.removeAttribute('id', 'add-todo-form-visible'); 
+        addTodoForm.classList.add('invisible');  
+        addTodoBtn.classList.remove('invisible'); 
       }); 
     
 
