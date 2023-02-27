@@ -120,11 +120,7 @@ body {
     height: 70%;
     width: 10%;
 }
-.projects {
-    background-color: white;
-    height: 100%;
-    width: 80%; 
-}
+
 .project-btns {
     margin-top: 4%;
     height: 80%;
@@ -201,4 +197,121 @@ body {
     filter: invert(0%) sepia(93%) saturate(0%) hue-rotate(255deg) brightness(93%) contrast(103%);
 
 
+}
+
+/* project container styling */ 
+.projects {
+    background-color: white;
+    height: 100%;
+    width: 80%; 
+    display: flex;
+    flex-direction: column;
+}
+.project-name {
+    height:  10%;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.5rem;
+    font-family: 'Inter', sans-serif ;
+    font-weight: 700;
+    text-decoration: underline;
+    
+}
+.todo-container {
+    height: 90%;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+}
+.add-todo-btn {
+    width: 15%;
+    height: 8%;
+    background-color: white;
+    border-radius: 5px;
+    border: 1px solid black;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+}
+.add-todo-btn:hover {
+    background-color: lightgray;
+}
+.add-todo-img {
+    height: 70%;
+    width: 20%;
+}
+.add-todo-text {
+    font-size: 1.1rem;
+    font-family: 'Inter', sans-serif ;
+}
+.invisible {
+   display: none;
+}
+
+/* add todo form */
+.add-todo-form {
+ width: 100%;
+ display: flex;
+ flex-direction: column;
+ align-items: center;
+ gap: 20px;
+ 
+} 
+
+.add-todo-header {
+    font-size: 1.5rem;
+}
+#todo-title-input {
+    width: 50%;
+    height: 5%;
+    border: 1px solid black;
+}
+#todo-description-input {
+    width: 50%;
+    height: 5%;
+    border: 1px solid black;
+}
+.important-div {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+.important-label {
+    font-size: 1.2rem;
+    font-weight: 700;
+}
+.important-inputs-div {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    margin-top: 5%;
+}
+.important-one, .important-two {
+    display: flex;
+    gap: 5px;
+}
+.date-input {
+    width: 30%;
+    height: 5%;
+    border: 1px solid black;
+}
+.form-submit-cancel {
+    height: 5%;
+    width: 30%;
+    display: flex;
+    gap: 10px;
+    justify-content: space-between;
+}
+.form-submit-btn, .form-cancel-btn {
+    height: 100%;
+    width: 20%;
+    border: 1px solid black;
+    background-color: white;
+}
+.form-submit-btn:hover, .form-cancel-btn:hover {
+    background-color: lightgray;
 }

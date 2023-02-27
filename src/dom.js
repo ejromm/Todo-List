@@ -8,7 +8,7 @@ import Icon6 from './trash-removebg-preview.png';
 import { app } from './UI';
 
 //upload button icons
-function pageImages() {
+function createDOM() {
     const imgOne = new Image(); 
     imgOne.src = Icon; 
     imgOne.classList.add('tasks-image'); 
@@ -38,6 +38,86 @@ function pageImages() {
     imgFive.classList.add('project-image'); 
     const newProject = document.querySelector('.proj-img'); 
     newProject.appendChild(imgFive); 
+
+    const todoBtnContainer = document.querySelector('.todo-container'); 
+    const addTodoBtn = document.createElement('button'); 
+    addTodoBtn.classList.add('add-todo-btn'); 
+    todoBtnContainer.appendChild(addTodoBtn); 
+
+    const addTodoImage = new Image(); 
+    addTodoImage.src = Icon5; 
+    addTodoImage.classList.add('add-todo-img'); 
+    addTodoBtn.appendChild(addTodoImage);
+
+    const addTodoText = document.createElement('p'); 
+    addTodoText.textContent = 'Add Todo'; 
+    addTodoText.classList.add('add-todo-text');
+    addTodoBtn.appendChild(addTodoText); 
+
+
+    const addTodoForm = document.createElement('form');  
+    addTodoForm.classList.add('add-todo-form'); 
+    const addTodoHeader = document.createElement('h1'); 
+    addTodoHeader.classList.add('add-todo-header');
+    addTodoHeader.textContent = 'New Todo'; 
+
+    const titleInput = document.createElement('input'); 
+    titleInput.type = 'text'; 
+    titleInput.setAttribute('placeholder', 'Title'); 
+    titleInput.setAttribute('id', 'todo-title-input'); 
+
+    const descriptionInput = document.createElement('input'); 
+    descriptionInput.type = 'text'; 
+    descriptionInput.setAttribute('placeholder', 'Description'); 
+    descriptionInput.setAttribute('id', 'todo-description-input'); 
+    
+    const importantDiv = document.createElement('div'); 
+    importantDiv.classList.add('important-div'); 
+    const importantLabel = document.createElement('label'); 
+    importantLabel.classList.add('important-label'); 
+    importantLabel.textContent = 'Important?'; 
+
+    const importantInputsDiv = document.createElement('div'); 
+    importantInputsDiv.classList.add('important-inputs-div'); 
+    const importantInputOne = document.createElement('input'); 
+    const importantInputTwo = document.createElement('input'); 
+    importantInputOne.type = 'radio'; 
+    importantInputTwo.type = 'radio'; 
+    const importantInputOneLabel = document.createElement('label'); 
+    const importantInputTwoLabel = document.createElement('label'); 
+    importantInputOneLabel.textContent = 'Yes'; 
+    importantInputTwoLabel.textContent = 'No'; 
+    const importantOne = document.createElement('div'); 
+    const importantTwo = document.createElement('div'); 
+    importantOne.append(importantInputOneLabel, importantInputOne); 
+    importantTwo.append(importantInputTwoLabel, importantInputTwo); 
+    importantOne.classList.add('important-one'); 
+    importantTwo.classList.add('important-two'); 
+    importantInputOne.setAttribute('name', 'important'); 
+    importantInputTwo.setAttribute('name', 'important'); 
+    importantInputsDiv.append(importantOne, importantTwo); 
+    importantDiv.append(importantLabel, importantInputsDiv); 
+
+    const dateInput = document.createElement('input'); 
+    dateInput.classList.add('date-input'); 
+    dateInput.type = 'date'; 
+    dateInput.setAttribute('placeholder', 'mm/dd/yyyy'); 
+
+    const formSubmitCancel = document.createElement('div'); 
+    formSubmitCancel.classList.add('form-submit-cancel'); 
+    const formSubmitBtn = document.createElement('button'); 
+    const formCancelBtn = document.createElement('button'); 
+    formSubmitBtn.classList.add('form-submit-btn'); 
+    formCancelBtn.classList.add('form-cancel-btn'); 
+    formSubmitBtn.textContent = 'Add';
+    formCancelBtn.textContent = 'Cancel'; 
+    formSubmitCancel.append(formSubmitBtn, formCancelBtn); 
+    addTodoForm.append(addTodoHeader, titleInput, descriptionInput, importantDiv, dateInput, formSubmitCancel); 
+    todoBtnContainer.appendChild(addTodoForm); 
+
+    addTodoBtn.classList.toggle('invisible');
+    addTodoForm.classList.toggle('add-todo-form'); 
+    addTodoForm.classList.toggle('invisible'); 
 }
 
 // add event listener to add project button, create form modal, push contents to local storage
@@ -113,9 +193,39 @@ function renderAndDisplay(project) {
         item.remove(); 
         app.deleteProjectFromLibrary(project);
         app.updateLocalStorage()
+    }); 
+
+    const addTodoBtn = document.querySelector('.add-todo-btn'); 
+    item.addEventListener('click', function() {
+        addTodoBtn.classList.remove('invisible'); 
+        renderProjectScreen(project); 
+         
     })
 }
 
+
+function renderProjectScreen(proj) {
+    const projectNameContainer = document.querySelector('.project-name'); 
+    projectNameContainer.textContent = proj; 
+    const addTodoBtn = document.querySelector('.add-todo-btn'); 
+    const addTodoForm = document.querySelector('.add-todo-form'); 
+    const formCancelBtn = document.querySelector('.form-cancel-btn'); 
+    addTodoBtn.addEventListener('click', function() {
+        addTodoBtn.classList.toggle('invisible');
+        addTodoForm.classList.toggle('invisible');
+        addTodoForm.classList.toggle('add-todo-form');  
+       
+    }); 
+
+    formCancelBtn.addEventListener('click', function() {
+        addTodoForm.classList.toggle('add-todo-form');
+        addTodoForm.classList.toggle('invisible');  
+        addTodoBtn.classList.toggle('invisible'); 
+      }); 
+    
+
+
+}
 
 
 function renderAll() {
@@ -124,4 +234,4 @@ function renderAll() {
  console.log(arr); 
   arr.forEach((project) => renderAndDisplay(project.name))
 }
-export { pageImages, projectModal, renderAll }; 
+export { createDOM, projectModal, renderAll }; 

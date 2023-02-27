@@ -1,7 +1,7 @@
-import { pageImages, projectModal, renderAll } from "./dom";
+import { createDOM, projectModal, renderAll } from "./dom";
  
 
-pageImages(); 
+createDOM(); 
 projectModal(); 
 renderAll(); 
 
