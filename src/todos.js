@@ -1,6 +1,7 @@
 class ToDos {
     
-    constructor(title, date, important, done) {
+    constructor(parentProj, title, date, important, done) {
+        this.parentProj = parentProj; 
         this.title = title; 
         this.date = date;
         this.done = done; 

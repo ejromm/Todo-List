@@ -8,7 +8,7 @@ import Icon6 from './trash-removebg-preview.png';
 import Icon7 from './star-filled-svgrepo-com.svg';
 import Icon8 from './star-svgrepo-com.svg'
 import { app } from './UI';
-
+import { compareAsc, format } from 'date-fns'; 
 //upload button icons
 function createDOM() {
     const imgOne = new Image(); 
@@ -266,7 +266,9 @@ function pushTodo() {
     }; 
 
     const date = document.querySelector('.date-input').value; 
-    const dateFinal = new Date(date);
+    const dt = new Date(date);
+    const dateFinal = new Date(dt.valueOf() + dt.getTimezoneOffset() * 60 * 1000);
+
    
     app.addTodoToProject(pName, titleVal, dateFinal, importantVal, doneVal); 
     app.updateLocalStorage(); 
@@ -280,6 +282,75 @@ function pushTodo() {
     
 
 
+}
+function renderTodo(todo) {
+    const todoContainer = document.querySelector('.todo-container'); 
+    const todoBtnContainer = document.querySelector('.add-todo-btn');
+        const todoItem = document.createElement('div');
+        todoItem.classList.add('todo-item'); 
+        todoContainer.insertBefore(todoItem, todoBtnContainer);
+    
+        const todoCheckAndTitle = document.createElement('div');
+        todoCheckAndTitle.classList.add('todo-check-title');
+        const todoCheckBox = document.createElement('input');
+        todoCheckBox.type = 'checkbox'; 
+        todoCheckBox.setAttribute('id', 'todo-checkbox');
+        const todoTitle = document.createElement('span');
+        todoTitle.setAttribute('id', 'todo-title');
+        todoCheckAndTitle.append(todoCheckBox, todoTitle);
+        const todoDateImportantDelete = document.createElement('div');
+        todoDateImportantDelete.classList.add('todo-date-important-delete');
+        const todoDate = document.createElement('span');
+        todoDate.setAttribute('id', 'todo-date');
+        const todoImportantImg = new Image(); 
+        todoImportantImg.src = Icon8;
+        todoImportantImg.setAttribute('id', 'todo-important-image');
+        const todoDeleteBtn = new Image(); 
+        todoDeleteBtn.src = Icon6;
+        todoDeleteBtn.setAttribute('id', 'todo-delete-btn');
+        todoDateImportantDelete.append(todoDate, todoImportantImg, todoDeleteBtn);
+        todoItem.append(todoCheckAndTitle, todoDateImportantDelete);
+    
+        todoTitle.textContent = todo.title; 
+        const date = new Date(todo.date); 
+        const dateFinal = new Date(date.valueOf() + date.getTimezoneOffset() * 60 * 1000);
+        todoDate.textContent = format(dateFinal, 'dd-MM-yyyy');
+        
+        if (todo.done === false) {
+            todoCheckBox.checked = false; 
+        } else if (todo.done === true) {
+            todoCheckBox.checked = true; 
+        }
+    
+        if (todo.important === false) {
+            todoImportantImg.src = Icon8;
+        } else if (todo.important === true) {
+            todoImportantImg.src = Icon7; 
+        }
+        
+        todoImportantImg.addEventListener('click', function() {
+            if (todoImportantImg.src === Icon7) {
+                todoImportantImg.src = Icon8; 
+                app.switchImportant(todo.parentProj, todo.title)
+                app.updateLocalStorage(); 
+                todoItem.remove();
+            } else if (todoImportantImg.src === Icon8) {
+                todoImportantImg.src = Icon7; 
+                app.switchImportant(todo.parentProj, todo.title); 
+                app.updateLocalStorage(); 
+            }
+        }); 
+    
+        todoCheckBox.addEventListener('click', function() {
+            app.switchDone(todo.parentProj, todo.title); 
+            app.updateLocalStorage(); 
+        }); 
+    
+        todoDeleteBtn.addEventListener('click', function() {
+            app.deleteTodoFromProject(todo.parentProj, todo.title);
+            app.updateLocalStorage(); 
+            todoItem.remove(); 
+        })
 }
 function renderProjectTodos(pName) {
     const todos = app.projectTodos(pName); 
@@ -313,7 +384,9 @@ function renderProjectTodos(pName) {
     
         todoTitle.textContent = todo.title; 
         const date = new Date(todo.date); 
-        todoDate.textContent = date.toLocaleDateString();
+        const dtDateOnly = new Date(date.valueOf() + date.getTimezoneOffset() * 60 * 1000);
+        const dateFinal = format(dtDateOnly, 'dd-MM-yyyy');  
+        todoDate.textContent = dateFinal;
         
         if (todo.done === false) {
             todoCheckBox.checked = false; 
@@ -341,7 +414,6 @@ function renderProjectTodos(pName) {
     
         todoCheckBox.addEventListener('click', function() {
             app.switchDone(pName, todo.title); 
-            console.log('checkbox')
             app.updateLocalStorage(); 
         }); 
     
@@ -353,7 +425,81 @@ function renderProjectTodos(pName) {
         
     })
 }
+function renderImportant() {
+    const importantBtn = document.querySelector('#important-btn'); 
+    const addTodoBtn = document.querySelector('.add-todo-btn'); 
+    const addTodoForm = document.querySelector('.add-todo-form'); 
+    const projectName = document.querySelector('.project-name'); 
  
+    importantBtn.addEventListener('click', function() {
+        app.updateLocalStorage(); 
+        addTodoBtn.classList.add('invisible');
+        addTodoForm.classList.add('invisible'); 
+        addTodoForm.removeAttribute('id', 'add-todo-form-visible'); 
+        projectName.textContent = 'Important'; 
+        const todoItems = document.querySelectorAll('.todo-item'); 
+        for (let item of todoItems) {
+            item.remove(); 
+        }
+        const todoContainer = document.querySelector('.todo-container'); 
+        const importantTodos = app.getAllImportantTodos(); 
+        importantTodos.forEach((todo) => {
+            renderTodo(todo);
+        }); 
+    }); 
+}
+
+function renderTodayArray() {
+   
+    const todayBtn = document.querySelector('#today-btn'); 
+    const addTodoBtn = document.querySelector('.add-todo-btn'); 
+    const addTodoForm = document.querySelector('.add-todo-form'); 
+    const projectName = document.querySelector('.project-name'); 
+   
+    todayBtn.addEventListener('click', function() {
+        app.updateLocalStorage(); 
+        addTodoBtn.classList.add('invisible');
+        addTodoForm.classList.add('invisible'); 
+        addTodoForm.removeAttribute('id', 'add-todo-form-visible'); 
+        projectName.textContent = 'Today'; 
+        const todoItems = document.querySelectorAll('.todo-item'); 
+        for (let item of todoItems) {
+            item.remove(); 
+        }
+        const todoContainer = document.querySelector('.todo-container'); 
+        let todays = app.getTodayTodos(); 
+        todays.forEach((todo) => {
+            renderTodo(todo);
+        }); 
+    }); 
+}; 
+
+function renderWeekArray() {
+    const weekBtn = document.querySelector('#week-btn'); 
+    const addTodoBtn = document.querySelector('.add-todo-btn'); 
+    const addTodoForm = document.querySelector('.add-todo-form'); 
+    const projectName = document.querySelector('.project-name'); 
+
+    weekBtn.addEventListener('click', function() {
+        app.updateLocalStorage(); 
+        addTodoBtn.classList.add('invisible');
+        addTodoForm.classList.add('invisible'); 
+        addTodoForm.removeAttribute('id', 'add-todo-form-visible'); 
+        projectName.textContent = 'This Week'; 
+        const todoItems = document.querySelectorAll('.todo-item'); 
+        for (let item of todoItems) {
+            item.remove(); 
+        }
+        const todoContainer = document.querySelector('.todo-container'); 
+        let weeks = app.getWeekTodos(); 
+        console.log('weeks');
+        console.log(weeks); 
+        weeks.forEach((todo) => {
+            renderTodo(todo); 
+        }); 
+    }); 
+
+}; 
 
 function renderAll() {
  app.restoreLocalStorage();
@@ -361,4 +507,4 @@ function renderAll() {
  console.log(arr); 
   arr.forEach((project) => renderAndDisplay(project.name))
 }
-export { createDOM, projectModal, renderAll }; 
+export { createDOM, projectModal, renderAll, renderImportant, renderTodayArray, renderWeekArray }; 

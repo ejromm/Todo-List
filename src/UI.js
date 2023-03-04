@@ -1,6 +1,9 @@
 import { Project } from "./project";
 import { ToDos } from "./todos";
-
+import isToday from 'date-fns/isToday'; 
+import formatISO from 'date-fns/formatISO'; 
+import isThisWeek from 'date-fns/isThisWeek'; 
+import { parseISO } from "date-fns";
 const app = (function () {
 let storage = [
     {name: 'Default', 
@@ -32,9 +35,9 @@ function addProjectToLibrary(name) {
     
 }
 
-function addTodoToProject(projectName, title, date, important, done) {
-  const newTodo = new ToDos(title, date, important, done); 
-  const project = storage.find((p) => p.name === projectName);
+function addTodoToProject(parentProj, title, date, important, done) {
+  const newTodo = new ToDos(parentProj, title, date, important, done); 
+  const project = storage.find((p) => p.name === parentProj);
   project.todos.push(newTodo); 
 
   
@@ -49,6 +52,7 @@ function deleteTodoFromProject(projectName, todoName) {
 function switchImportant(projectName, todoName) {
     const project = storage.find((p) => p.name === projectName); 
     const todo = project.todos.find((t) => t.title === todoName); 
+
     if(todo.important === true) {
         todo.important = false; 
     } else if (todo.important === false) {
@@ -96,6 +100,48 @@ function getAllTodos() {
 
     return todoArray; 
 }
+function getAllImportantTodos() {
+    let todoArray = []; 
+    storage.forEach((project) => {
+        project.todos.forEach((todo) => {
+            if (todo.important === true) {
+                todoArray.push(todo); 
+            }
+        })
+    })
+    return todoArray; 
+    
+}
+function getTodayTodos() {
+    let todayArray = []; 
+    storage.forEach((project) => {
+        project.todos.forEach((todo) => {
+           let d = parseISO(todo.date); 
+            if (isToday(d)) {
+                todayArray.push(todo); 
+            }
+
+        })
+    })
+
+    return todayArray; 
+    
+}; 
+
+function getWeekTodos() {
+    let weekArray = []; 
+    storage.forEach((project) => {
+        project.todos.forEach((todo) => {
+            let d = parseISO(todo.date); 
+            if (isThisWeek(d)) {
+                weekArray.push(todo); 
+            }
+        })
+    }); 
+    return weekArray; 
+   
+}; 
+
 return {
     updateLocalStorage, 
     restoreLocalStorage, 
@@ -110,7 +156,10 @@ return {
     switchImportant, 
     switchDone, 
     projectTodos, 
-
+    getAllImportantTodos, 
+    getTodayTodos, 
+    getWeekTodos, 
+   
 
 
 
