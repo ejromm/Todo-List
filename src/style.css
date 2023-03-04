@@ -223,7 +223,10 @@ body {
     height: 90%;
     width: 100%;
     display: flex;
-    justify-content: center;
+    justify-content: flex-start;
+    align-items: center;
+    flex-direction: column;
+    gap: 5%;
 }
 .add-todo-btn {
     width: 15%;
@@ -236,6 +239,7 @@ body {
     align-items: center;
     justify-content: center;
     gap: 10px;
+    margin-top: 2%;
 }
 .add-todo-btn:hover {
     background-color: lightgray;
@@ -266,18 +270,19 @@ body {
 }
 #todo-title-input {
     width: 50%;
-    height: 5%;
+    height: 10%;
     border: 1px solid black;
 }
 #todo-description-input {
     width: 50%;
-    height: 5%;
+    height: 10%;
     border: 1px solid black;
 }
 .important-div {
     display: flex;
     flex-direction: column;
     justify-content: center;
+   
 }
 .important-label {
     font-size: 1.2rem;
@@ -299,7 +304,7 @@ body {
     border: 1px solid black;
 }
 .form-submit-cancel {
-    height: 5%;
+    height: 10%;
     width: 30%;
     display: flex;
     gap: 10px;
@@ -313,4 +318,68 @@ body {
 }
 .form-submit-btn:hover, .form-cancel-btn:hover {
     background-color: lightgray;
+}
+
+/* Todo List */
+
+.todo-item {
+    height: 8%;
+    width: 80%;
+    border: 1px solid black;
+    display: flex;
+    flex-direction: row;
+    gap: 5px;
+    justify-content: space-between;
+    font-family: 'Inter', 'sans-serif';
+    
+}
+.todo-check-title {
+
+    width: 45%;
+    height: 100%;
+    display: flex;
+    flex-direction: row;
+    gap: 2px;
+    align-items: center;
+    justify-content: space-between;
+}
+#todo-checkbox {
+    width: 10%;
+    height: 50%;
+    margin-left: 5%;
+}
+#todo-title {
+
+    width: 80%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+}
+
+.todo-date-important-delete {
+    width: 40%;
+    height: 100%;
+    display: flex;
+    flex-direction: row;
+    
+  
+    align-items: center;
+    justify-content: space-between;
+    margin-right: 2%;
+}
+#todo-date {
+    width: 50%;
+    height: 80%;
+    
+    display: flex;
+    align-items: center;
+}
+#todo-important-image {
+    width: 10%; 
+    height: 60%;
+}
+#todo-delete-btn {
+    width: 10%;
+    height: 60%;
+   
 }

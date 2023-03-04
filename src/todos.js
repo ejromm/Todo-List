@@ -1,10 +1,10 @@
 class ToDos {
-    constructor(title, description, date, important, done) {
+    
+    constructor(title, date, important, done) {
         this.title = title; 
-        this.description = description; 
         this.date = date;
-        this.important = false; 
-        this.done = false; 
+        this.done = done; 
+        this.important = important; 
     }
 }
 

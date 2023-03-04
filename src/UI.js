@@ -14,8 +14,9 @@ function returnStorage() {
 
 function updateLocalStorage() {
     localStorage.setItem('Storage', JSON.stringify(storage)); 
-    console.log(localStorage); 
-    console.log(storage); 
+    console.log(storage);
+    console.log(localStorage);
+    
 }
 function restoreLocalStorage() {
     if(localStorage.getItem('Storage')) {
@@ -31,34 +32,59 @@ function addProjectToLibrary(name) {
     
 }
 
-function addTodoToProject(projectIndex, title, description, date, important, done) {
-  const newTodo = new ToDos(title, description, date, important, done); 
-  const project = storage.find((p) => storage.indexOf(p) === projectIndex);
-  project.addTodo(newTodo); 
-  
+function addTodoToProject(projectName, title, date, important, done) {
+  const newTodo = new ToDos(title, date, important, done); 
+  const project = storage.find((p) => p.name === projectName);
+  project.todos.push(newTodo); 
 
+  
 }
 
-function deleteTodoFromProject(projectIndex, todoIndex) {
-    const project = storage.find((p) => storage.indexOf(p) === projectIndex); 
-    const todo = project.todos.find((t) => project.todos.indexOf(t) === todoIndex); 
+function deleteTodoFromProject(projectName, todoName) {
+    const project = storage.find((p) => p.name === projectName); 
+    const todo = project.todos.find((t) => t.title === todoName); 
     project.todos.splice(todo, 1); 
 }
+
+function switchImportant(projectName, todoName) {
+    const project = storage.find((p) => p.name === projectName); 
+    const todo = project.todos.find((t) => t.title === todoName); 
+    if(todo.important === true) {
+        todo.important = false; 
+    } else if (todo.important === false) {
+        todo.important = true; 
+    }
+}
+function switchDone(projectName, todoName) {
+    const project = storage.find((p) => p.name === projectName); 
+    const todo = project.todos.find((t) => t.title === todoName); 
+    if (todo.done === true) {
+        todo.done = false; 
+    } else if (todo.done === false) {
+        todo.done = true; 
+    }
+}
+
 
 function deleteProjectFromLibrary(deleteProj) {
     const proj = storage.find(project => project.name === deleteProj); 
     storage.splice(storage.indexOf(proj), 1); 
 }
 
-function editTodo(projectIndex, todoIndex, title, description, date, important, done) {
+function editTodo(projectIndex, todoIndex, title, date, important, done) {
     const project = storage.find((p) => storage.indexOf(p) === projectIndex); 
     const todo = project.todos.find((t) => project.todos.indexOf(t) === todoIndex ); 
     todo.title = title; 
-    todo.description = description;
     todo.date = date; 
     todo.important = important; 
     todo.done = done; 
 }
+function projectTodos(projName) {
+    const proj = storage.find(project => project.name === projName); 
+    
+    return proj.todos; 
+}
+
 
 function getAllTodos() {
     const todoArray = []; 
@@ -79,7 +105,11 @@ return {
     deleteProjectFromLibrary,
     editTodo, 
     getAllTodos,  
-    returnStorage
+    returnStorage, 
+    projectTodos,
+    switchImportant, 
+    switchDone, 
+    projectTodos, 
 
 
 

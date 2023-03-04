@@ -5,6 +5,8 @@ import Icon3 from './calendar-1.png';
 import Icon4 from './calendar-2.png'; 
 import Icon5 from './plus.png'; 
 import Icon6 from './trash-removebg-preview.png'; 
+import Icon7 from './star-filled-svgrepo-com.svg';
+import Icon8 from './star-svgrepo-com.svg'
 import { app } from './UI';
 
 //upload button icons
@@ -40,6 +42,7 @@ function createDOM() {
     newProject.appendChild(imgFive); 
 
     const todoBtnContainer = document.querySelector('.todo-container'); 
+ 
     const addTodoBtn = document.createElement('button'); 
     addTodoBtn.classList.add('add-todo-btn'); 
     todoBtnContainer.appendChild(addTodoBtn); 
@@ -66,10 +69,7 @@ function createDOM() {
     titleInput.setAttribute('placeholder', 'Title'); 
     titleInput.setAttribute('id', 'todo-title-input'); 
 
-    const descriptionInput = document.createElement('input'); 
-    descriptionInput.type = 'text'; 
-    descriptionInput.setAttribute('placeholder', 'Description'); 
-    descriptionInput.setAttribute('id', 'todo-description-input'); 
+ 
     
     const importantDiv = document.createElement('div'); 
     importantDiv.classList.add('important-div'); 
@@ -114,7 +114,7 @@ function createDOM() {
     formSubmitBtn.textContent = 'Add';
     formCancelBtn.textContent = 'Cancel'; 
     formSubmitCancel.append(formSubmitBtn, formCancelBtn); 
-    addTodoForm.append(addTodoHeader, titleInput, descriptionInput, importantDiv, dateInput, formSubmitCancel); 
+    addTodoForm.append(addTodoHeader, titleInput, importantDiv, dateInput, formSubmitCancel); 
     todoBtnContainer.appendChild(addTodoForm); 
 
     addTodoBtn.classList.add('invisible');
@@ -197,9 +197,22 @@ function renderAndDisplay(project) {
     }); 
 
     const addTodoBtn = document.querySelector('.add-todo-btn'); 
+    const addTodoForm = document.querySelector('.add-todo-form'); 
+   
+    
+
     item.addEventListener('click', function() {
+        const todoItems = document.querySelectorAll('.todo-item'); 
+
+        for (let item of todoItems) {
+            item.remove(); 
+        }
         addTodoBtn.classList.remove('invisible'); 
+        addTodoForm.classList.add('invisible'); 
+        addTodoForm.removeAttribute('id', 'add-todo-form-visible');
+        
         renderProjectScreen(project); 
+        renderProjectTodos(project); 
          
     })
 }
@@ -208,9 +221,9 @@ function renderAndDisplay(project) {
 function renderProjectScreen(proj) {
     const projectNameContainer = document.querySelector('.project-name'); 
     projectNameContainer.textContent = proj; 
-    console.log(document.querySelector('.add-todo-btn')); 
+    
     const addTodoBtn = document.querySelector('.add-todo-btn'); 
-    console.log(document.querySelector('.add-todo-form'));
+    
     const addTodoForm = document.querySelector('.add-todo-form'); 
     const formCancelBtn = document.querySelector('.form-cancel-btn'); 
     const formSubmitBtn = document.querySelector('.form-submit-btn'); 
@@ -234,24 +247,157 @@ function renderProjectScreen(proj) {
         addTodoForm.classList.add('invisible'); 
         addTodoBtn.classList.remove('invisible');  
         pushTodo(); 
-
+        
     }); 
 
 }
 function pushTodo() {
+    const pName = document.querySelector('.project-name').textContent; 
     const title = document.getElementById('todo-title-input');
     const titleVal = title.value; 
-    const description = document.getElementById('todo-description-input'); 
-    const descriptionVal = description.value; 
     let importantVal = false; 
+    let doneVal = false; 
     const importantInputOne = document.querySelector('.important-input-one'); 
     const importantInputTwo = document.querySelector('.important-input-two'); 
     if (importantInputOne.checked) {
         importantVal = true; 
        
     }; 
-    console.log(importantVal); 
+    const date = document.querySelector('.date-input').value; 
+    const dateFinal = new Date(date);
+   
+    app.addTodoToProject(pName, titleVal, dateFinal, importantVal, doneVal); 
+    app.updateLocalStorage(); 
+    
+    const todoContainer = document.querySelector('.todo-container');
+    const todoBtnContainer = document.querySelector('.add-todo-btn');
+    const todoItem = document.createElement('div');
+    todoItem.classList.add('todo-item'); 
+    todoContainer.insertBefore(todoItem, todoBtnContainer);
+
+    const todoCheckAndTitle = document.createElement('div');
+    todoCheckAndTitle.classList.add('todo-check-title');
+    const todoCheckBox = document.createElement('input');
+    todoCheckBox.type = 'checkbox'; 
+    todoCheckBox.setAttribute('id', 'todo-checkbox');
+    const todoTitle = document.createElement('span');
+    todoTitle.setAttribute('id', 'todo-title');
+    todoCheckAndTitle.append(todoCheckBox, todoTitle);
+    const todoDateImportantDelete = document.createElement('div');
+    todoDateImportantDelete.classList.add('todo-date-important-delete');
+    const todoDate = document.createElement('span');
+    todoDate.setAttribute('id', 'todo-date');
+    const todoImportantImg = new Image(); 
+    todoImportantImg.src = Icon8;
+    todoImportantImg.setAttribute('id', 'todo-important-image');
+    const todoDeleteBtn = new Image(); 
+    todoDeleteBtn.src = Icon6;
+    todoDeleteBtn.setAttribute('id', 'todo-delete-btn');
+    todoDateImportantDelete.append(todoDate, todoImportantImg, todoDeleteBtn);
+    todoItem.append(todoCheckAndTitle, todoDateImportantDelete);
+
+    todoTitle.textContent = titleVal; 
+    todoDate.textContent = dateFinal.toLocaleDateString();
+
+    if (importantVal) {
+        todoImportantImg.src = Icon7;
+    }; 
+    
+    todoImportantImg.addEventListener('click', function() {
+        if (todoImportantImg.src === Icon7) {
+            todoImportantImg.src = Icon8; 
+            app.switchImportant(pName, titleVal)
+            app.updateLocalStorage(); 
+        } else if (todoImportantImg.src === Icon8) {
+            todoImportantImg.src = Icon7; 
+            app.switchImportant(pName, titleVal); 
+            app.updateLocalStorage(); 
+        }
+    }); 
+
+    todoCheckBox.addEventListener('change', function() {
+        app.switchDone(pName, titleVal); 
+        app.updateLocalStorage(); 
+    }); 
+
+    todoDeleteBtn.addEventListener('click', function() {
+        app.deleteTodoFromProject(pName, titleVal);
+        app.updateLocalStorage(); 
+        todoItem.remove(); 
+    })
+    
+
+    
+
+
 }
+function renderProjectTodos(pName) {
+    const todos = app.projectTodos(pName); 
+    todos.forEach((todo) => {
+        const todoContainer = document.querySelector('.todo-container');
+        const todoBtnContainer = document.querySelector('.add-todo-btn');
+        const todoItem = document.createElement('div');
+        todoItem.classList.add('todo-item'); 
+        todoContainer.insertBefore(todoItem, todoBtnContainer);
+    
+        const todoCheckAndTitle = document.createElement('div');
+        todoCheckAndTitle.classList.add('todo-check-title');
+        const todoCheckBox = document.createElement('input');
+        todoCheckBox.type = 'checkbox'; 
+        todoCheckBox.setAttribute('id', 'todo-checkbox');
+        const todoTitle = document.createElement('span');
+        todoTitle.setAttribute('id', 'todo-title');
+        todoCheckAndTitle.append(todoCheckBox, todoTitle);
+        const todoDateImportantDelete = document.createElement('div');
+        todoDateImportantDelete.classList.add('todo-date-important-delete');
+        const todoDate = document.createElement('span');
+        todoDate.setAttribute('id', 'todo-date');
+        const todoImportantImg = new Image(); 
+        todoImportantImg.src = Icon8;
+        todoImportantImg.setAttribute('id', 'todo-important-image');
+        const todoDeleteBtn = new Image(); 
+        todoDeleteBtn.src = Icon6;
+        todoDeleteBtn.setAttribute('id', 'todo-delete-btn');
+        todoDateImportantDelete.append(todoDate, todoImportantImg, todoDeleteBtn);
+        todoItem.append(todoCheckAndTitle, todoDateImportantDelete);
+    
+        todoTitle.textContent = todo.title; 
+        const date = todo.date; 
+        todoDate.textContent = date;
+        
+    
+        if (todo.important === false) {
+            todoImportantImg.src = Icon8;
+        } else if (todo.important === true) {
+            todoImportantImg.src = Icon7; 
+        }
+        
+        todoImportantImg.addEventListener('click', function() {
+            if (todoImportantImg.src === Icon7) {
+                todoImportantImg.src = Icon8; 
+                app.switchImportant(pName, todo.title)
+                app.updateLocalStorage(); 
+            } else if (todoImportantImg.src === Icon8) {
+                todoImportantImg.src = Icon7; 
+                app.switchImportant(pName, todo.title); 
+                app.updateLocalStorage(); 
+            }
+        }); 
+    
+        todoCheckBox.addEventListener('change', function() {
+            app.switchDone(pName, todo.title); 
+            app.updateLocalStorage(); 
+        }); 
+    
+        todoDeleteBtn.addEventListener('click', function() {
+            app.deleteTodoFromProject(pName, todo.title);
+            app.updateLocalStorage(); 
+            todoItem.remove(); 
+        })
+        
+    })
+}
+ 
 
 function renderAll() {
  app.restoreLocalStorage();
