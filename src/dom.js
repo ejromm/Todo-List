@@ -432,7 +432,7 @@ function renderImportant() {
     const projectName = document.querySelector('.project-name'); 
  
     importantBtn.addEventListener('click', function() {
-        app.updateLocalStorage(); 
+        app.restoreLocalStorage();
         addTodoBtn.classList.add('invisible');
         addTodoForm.classList.add('invisible'); 
         addTodoForm.removeAttribute('id', 'add-todo-form-visible'); 
@@ -457,7 +457,7 @@ function renderTodayArray() {
     const projectName = document.querySelector('.project-name'); 
    
     todayBtn.addEventListener('click', function() {
-        app.updateLocalStorage(); 
+        app.restoreLocalStorage(); 
         addTodoBtn.classList.add('invisible');
         addTodoForm.classList.add('invisible'); 
         addTodoForm.removeAttribute('id', 'add-todo-form-visible'); 
@@ -481,7 +481,7 @@ function renderWeekArray() {
     const projectName = document.querySelector('.project-name'); 
 
     weekBtn.addEventListener('click', function() {
-        app.updateLocalStorage(); 
+        app.restoreLocalStorage();  
         addTodoBtn.classList.add('invisible');
         addTodoForm.classList.add('invisible'); 
         addTodoForm.removeAttribute('id', 'add-todo-form-visible'); 
@@ -501,10 +501,45 @@ function renderWeekArray() {
 
 }; 
 
+function renderAllTodos() {
+    const allTaskBtn = document.querySelector('#all-tasks-btn'); 
+    const addTodoBtn = document.querySelector('.add-todo-btn'); 
+    const addTodoForm = document.querySelector('.add-todo-form'); 
+    const projectName = document.querySelector('.project-name'); 
+
+    allTaskBtn.addEventListener('click', function() {
+        app.restoreLocalStorage();  
+        addTodoBtn.classList.add('invisible');
+        addTodoForm.classList.add('invisible'); 
+        addTodoForm.removeAttribute('id', 'add-todo-form-visible'); 
+        projectName.textContent = 'All Todos'; 
+        const todoItems = document.querySelectorAll('.todo-item'); 
+        for (let item of todoItems) {
+            item.remove(); 
+        }
+        const todoContainer = document.querySelector('.todo-container'); 
+        let allTodos = app.getAllTodos(); 
+        console.log('all');
+        console.log(allTodos); 
+        allTodos.forEach((todo) => {
+            renderTodo(todo); 
+        }); 
+    }); 
+}
+
 function renderAll() {
  app.restoreLocalStorage();
  let arr = app.returnStorage(); 
  console.log(arr); 
   arr.forEach((project) => renderAndDisplay(project.name))
 }
-export { createDOM, projectModal, renderAll, renderImportant, renderTodayArray, renderWeekArray }; 
+function skeleton() {
+    createDOM(); 
+    projectModal(); 
+    renderAll(); 
+    renderImportant(); 
+    renderTodayArray(); 
+    renderWeekArray();
+    renderAllTodos(); 
+}
+export { skeleton }; 
