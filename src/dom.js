@@ -153,12 +153,12 @@ function projectModal() {
         buttonsDiv.removeChild(newProjButton); 
         buttonsDiv.appendChild(projectForm); 
 
-    })
+    });
 
     projectFormCancel.addEventListener('click', function() {
         buttonsDiv.removeChild(projectForm); 
         buttonsDiv.appendChild(newProjButton); 
-    })
+    });
 
     projectFormSubmit.addEventListener('click', function(e) {
         e.preventDefault(); 
@@ -167,7 +167,7 @@ function projectModal() {
         buttonsDiv.appendChild(newProjButton); 
         renderAndDisplay(projectInput.value); 
     
-    })
+    });
 }
 function renderAndDisplay(project) {
     const projectList = document.querySelector('.projects-list'); 
@@ -243,6 +243,7 @@ function renderProjectScreen(proj) {
 
     formSubmitBtn.addEventListener('click', function(e) {
         e.preventDefault(); 
+        e.stopImmediatePropagation(); 
         addTodoForm.removeAttribute('id', 'add-todo-form-visible'); 
         addTodoForm.classList.add('invisible'); 
         addTodoBtn.classList.remove('invisible');  
@@ -263,70 +264,19 @@ function pushTodo() {
         importantVal = true; 
        
     }; 
+
     const date = document.querySelector('.date-input').value; 
     const dateFinal = new Date(date);
    
     app.addTodoToProject(pName, titleVal, dateFinal, importantVal, doneVal); 
     app.updateLocalStorage(); 
     
-    const todoContainer = document.querySelector('.todo-container');
-    const todoBtnContainer = document.querySelector('.add-todo-btn');
-    const todoItem = document.createElement('div');
-    todoItem.classList.add('todo-item'); 
-    todoContainer.insertBefore(todoItem, todoBtnContainer);
+    const todoItems = document.querySelectorAll('.todo-item'); 
 
-    const todoCheckAndTitle = document.createElement('div');
-    todoCheckAndTitle.classList.add('todo-check-title');
-    const todoCheckBox = document.createElement('input');
-    todoCheckBox.type = 'checkbox'; 
-    todoCheckBox.setAttribute('id', 'todo-checkbox');
-    const todoTitle = document.createElement('span');
-    todoTitle.setAttribute('id', 'todo-title');
-    todoCheckAndTitle.append(todoCheckBox, todoTitle);
-    const todoDateImportantDelete = document.createElement('div');
-    todoDateImportantDelete.classList.add('todo-date-important-delete');
-    const todoDate = document.createElement('span');
-    todoDate.setAttribute('id', 'todo-date');
-    const todoImportantImg = new Image(); 
-    todoImportantImg.src = Icon8;
-    todoImportantImg.setAttribute('id', 'todo-important-image');
-    const todoDeleteBtn = new Image(); 
-    todoDeleteBtn.src = Icon6;
-    todoDeleteBtn.setAttribute('id', 'todo-delete-btn');
-    todoDateImportantDelete.append(todoDate, todoImportantImg, todoDeleteBtn);
-    todoItem.append(todoCheckAndTitle, todoDateImportantDelete);
-
-    todoTitle.textContent = titleVal; 
-    todoDate.textContent = dateFinal.toLocaleDateString();
-
-    if (importantVal) {
-        todoImportantImg.src = Icon7;
-    }; 
-    
-    todoImportantImg.addEventListener('click', function() {
-        if (todoImportantImg.src === Icon7) {
-            todoImportantImg.src = Icon8; 
-            app.switchImportant(pName, titleVal)
-            app.updateLocalStorage(); 
-        } else if (todoImportantImg.src === Icon8) {
-            todoImportantImg.src = Icon7; 
-            app.switchImportant(pName, titleVal); 
-            app.updateLocalStorage(); 
+        for (let item of todoItems) {
+            item.remove(); 
         }
-    }); 
-
-    todoCheckBox.addEventListener('change', function() {
-        app.switchDone(pName, titleVal); 
-        app.updateLocalStorage(); 
-    }); 
-
-    todoDeleteBtn.addEventListener('click', function() {
-        app.deleteTodoFromProject(pName, titleVal);
-        app.updateLocalStorage(); 
-        todoItem.remove(); 
-    })
-    
-
+        renderProjectTodos(pName);
     
 
 
@@ -362,9 +312,14 @@ function renderProjectTodos(pName) {
         todoItem.append(todoCheckAndTitle, todoDateImportantDelete);
     
         todoTitle.textContent = todo.title; 
-        const date = todo.date; 
-        todoDate.textContent = date;
+        const date = new Date(todo.date); 
+        todoDate.textContent = date.toLocaleDateString();
         
+        if (todo.done === false) {
+            todoCheckBox.checked = false; 
+        } else if (todo.done === true) {
+            todoCheckBox.checked = true; 
+        }
     
         if (todo.important === false) {
             todoImportantImg.src = Icon8;
@@ -384,8 +339,9 @@ function renderProjectTodos(pName) {
             }
         }); 
     
-        todoCheckBox.addEventListener('change', function() {
+        todoCheckBox.addEventListener('click', function() {
             app.switchDone(pName, todo.title); 
+            console.log('checkbox')
             app.updateLocalStorage(); 
         }); 
     
